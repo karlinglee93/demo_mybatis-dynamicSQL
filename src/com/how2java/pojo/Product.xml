@@ -3,12 +3,16 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	<mapper namespace="com.how2java.pojo">
-	<select id="listProduct" resultType="Product">
-		  SELECT * FROM product_ 
-		  	WHERE ID in
-	  			<foreach item="item" index="index" collection="list"
-	      			open="(" separator="," close=")">
-	        		#{item}
-	  			</foreach>
-	</select>	
+		<!-- 本来的模糊查询方式 -->
+<!-- 		<select id="listProduct" resultType="Product"> -->
+<!-- 			select * from   product_  where name like concat('%',#{0},'%') -->
+<!-- 		</select> -->
+			
+		<select id="listProduct" resultType="Product">
+			<bind name="likename" value="'%' + name + '%'" />
+			select * from   product_  where name like #{likename}
+		</select>
+		
+
+		
 	</mapper>
