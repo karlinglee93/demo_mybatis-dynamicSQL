@@ -2,9 +2,8 @@ package com.how2java;
  
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -21,10 +20,12 @@ public class TestMybatis {
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         SqlSession session = sqlSessionFactory.openSession();
 
-		Map<String,Object> params = new HashMap<>(); 
-//      params.put("name","a");
-//      params.put("price","10");
-      List<Product> ps = session.selectList("listProduct",params);
+        List<Integer> ids = new ArrayList();
+        ids.add(1);
+        ids.add(3);
+        ids.add(5);
+        
+      List<Product> ps = session.selectList("listProduct",ids);
       for (Product p : ps) {
           System.out.println(p);
       }
@@ -34,7 +35,5 @@ public class TestMybatis {
  
     }
 
-	private static void listAll(SqlSession session) {
 
-	}
 }
